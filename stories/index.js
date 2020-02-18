@@ -110,21 +110,21 @@ const interviewers = [
 ];
 
 storiesOf("InterviewerList", module)
-  .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-  })
-  .add("Initial", () => (
-    <InterviewerList
-      interviewers={interviewers}
-      setInterviewer={event => action("setInterviewer")(interviewer.id)}
-      onChange={action("onChange")}
-    />
-  ))
-  .add("Preselected", () => (
-    <InterviewerList
-      interviewers={interviewers}
-      interviewer={3}
-      setInterviewer={event => action("setInterviewer")(interviewer.id)}
-      onChange={action("onChange")}
-    />
-  ));
+.addParameters({
+  backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+})
+.add("Initial", () => (
+  <InterviewerList
+    interviewers={interviewers}
+    setInterviewer={event => action("setInterviewer")(interviewer.id)}
+    onChange={action("onChange")}
+  />
+))
+.add("Preselected", () => (
+  <InterviewerList
+    interviewers={interviewers}
+    value={3}
+    setInterviewer={event => action("setInterviewer")(interviewer.id)}
+    onChange={action("onChange")}
+  />
+));

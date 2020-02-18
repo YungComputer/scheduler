@@ -5,7 +5,7 @@ const classNames = require("classnames");
 
 export default function InterviewerListItem(props) {
   const InterviewerClass = classNames("interviewers__item", {
-    "interviewers__item--selected": props.selected
+    "interviewers__item--selected": props.selected,
   });
   return (
     <li className={InterviewerClass} onClick={props.setInterviewer}>
