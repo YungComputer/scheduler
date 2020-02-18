@@ -8,8 +8,9 @@ import DayList from "components/DayList.js";
 import InterviewerListItem from "components/InterviewerListItem.js";
 import InterviewerList from "components/InterviewerList.js";
 import Appointment from "components/Appointment/index.js";
-import Header from "components/Appointment/Header.js"
-
+import Header from "components/Appointment/Header.js";
+import Empty from "components/Appointment/Empty.js";
+import Show from "components/Appointment/Show.js";
 
 storiesOf("Button", module)
   .addParameters({
@@ -110,29 +111,31 @@ const interviewers = [
 ];
 
 storiesOf("InterviewerList", module)
-.addParameters({
-  backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-})
-.add("Initial", () => (
-  <InterviewerList
-    interviewers={interviewers}
-    setInterviewer={event => action("setInterviewer")(interviewer.id)}
-    onChange={action("onChange")}
-  />
-))
-.add("Preselected", () => (
-  <InterviewerList
-    interviewers={interviewers}
-    value={3}
-    setInterviewer={event => action("setInterviewer")(interviewer.id)}
-    onChange={action("onChange")}
-  />
-));
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Initial", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+      onChange={action("onChange")}
+    />
+  ))
+  .add("Preselected", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      value={3}
+      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+      onChange={action("onChange")}
+    />
+  ));
 
 storiesOf("Appointment", module)
-.addParameters({
-  backgrounds: [{ name: "white", value: "#fff", default: true }]
-})
-.add("Appointment", () => <Appointment />)
-.add("Appointment with Time", () => <Appointment time="12pm" />)
-.add("Header", () => <Header time="12pm" />)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm" />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+  .add("Show", () => <Show student="Lydia Miller-Jones" interviewer={interviewer} onEdit={action("onEdit")} onDelete={action("onDelete")}/>)
