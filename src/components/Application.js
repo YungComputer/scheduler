@@ -56,7 +56,7 @@ const appointments = [
       name: "Mildred Nazir",
       avatar: "https://i.imgur.com/T2WwVfS.png"
     }
-  }
+  },
   {
     id: 5,
     time: "2pm",
