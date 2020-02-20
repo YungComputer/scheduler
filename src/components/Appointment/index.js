@@ -18,12 +18,13 @@ function save(name, interviewer) {
     student: name,
     interviewer
   };
+  props.bookInterview(props.id, props.interview)
 }
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
-      {mode === CREATE && <Form interviewers={[]} onCancel = {back} />}
+      {mode === CREATE && <Form interviewers={props.interviewers} onCancel = {back} onSave = {save} />}
       {mode === SHOW && (
         <Show
         student={props.interview.student}
