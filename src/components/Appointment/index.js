@@ -5,8 +5,8 @@ import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 import Form from "components/Appointment/Form.js";
 import useVisualMode from "hooks/useVisualMode.js";
-import Status from "./Status.js"
-import Confirm from "components/Appointment/Confirm.js"
+import Status from "./Status.js";
+import Confirm from "components/Appointment/Confirm.js";
 
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
@@ -15,6 +15,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const CONFIRM = "CONFIRM";
   const DELETING = "DELETING";
+  const EDIT = "EDIT";
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -27,7 +28,7 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview).then(() => transition(SHOW));
   }
   function cancelAppt(id) {
-    transition(CONFIRM)
+    transition(CONFIRM);
   }
   function deleteAppt() {
     transition(DELETING);
@@ -46,12 +47,28 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={cancelAppt}
+          onEdit={() => transition(EDIT)}
           onConfirm={props.onConfirm}
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
       {mode == DELETING && <Status message="Deleting" />}
-      {mode === CONFIRM && <Confirm message="Are you sure you want to cancel?" onCancel={back} onConfirm={deleteAppt} />}
+      {mode === CONFIRM && (
+        <Confirm
+          message="Are you sure you want to cancel?"
+          onCancel={back}
+          onConfirm={deleteAppt}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onCancel={() => back()}
+          onSave={save}
+        />
+      )}
     </article>
   );
 }
