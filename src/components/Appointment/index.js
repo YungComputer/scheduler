@@ -5,11 +5,13 @@ import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 import Form from "components/Appointment/Form.js";
 import useVisualMode from "hooks/useVisualMode.js";
+import Status from "./Status.js"
 
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const SAVING = "SAVING";
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -18,8 +20,10 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+    transition(SAVING);
     props.bookInterview(props.id, interview).then(() => transition(SHOW));
   }
+
   console.log(props.interview);
   return (
     <article className="appointment">
@@ -32,8 +36,10 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={() => props.cancelInterview(props.id)}
         />
       )}
+      {mode === SAVING && <Status message="Saving" />}
     </article>
   );
 }
