@@ -6,6 +6,7 @@ import Empty from "components/Appointment/Empty.js";
 import Form from "components/Appointment/Form.js"
 import useVisualMode from "hooks/useVisualMode.js"
 
+
 export default function Appointment(props) {
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -18,8 +19,11 @@ function save(name, interviewer) {
     student: name,
     interviewer
   };
-  props.bookInterview(props.id, props.interview)
+  props.bookInterview(props.id, interview)
+  transition(SHOW)
+
 }
+console.log(props.interview);
   return (
     <article className="appointment">
       <Header time={props.time} />
