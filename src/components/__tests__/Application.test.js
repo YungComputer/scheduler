@@ -90,7 +90,32 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
   
-    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
 
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    const { container } = render(<Application />);
+    // find an existing interview
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    //with this interview, find edit button
+    fireEvent.click(queryByAltText(container, "Edit"));
+    //change name and save the interview
+    fireEvent.change(getByPlaceholderText(container, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(container, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(container, "Save"));
+    //spots do not change for Monday
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+  })
+  it("shows the save error when failing to save an appointment", () => {
+    axios.put.mockRejectedValueOnce();
+  });
+  it("shows the delete error when failing to delete an appointment", () => {
+    axios.put.mockRejectedValueOnce();
+  });
 });
