@@ -1,23 +1,22 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import axios from "axios";
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 const SET_SPOTS = "SET_SPOTS";
 
-
 function reducer(state, action) {
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
   const SET_SPOTS = "SET_SPOTS";
-  
+
   switch (action.type) {
     case SET_SPOTS:
-      const indexOfDay = state.days.findIndex(day => day.name === state.day)
-      const newDays = [...state.days]
-      newDays[indexOfDay].spots = newDays[indexOfDay].spots + action.addend
-      return { ...state, days: newDays }
+      const indexOfDay = state.days.findIndex(day => day.name === state.day);
+      const newDays = [...state.days];
+      newDays[indexOfDay].spots = newDays[indexOfDay].spots + action.addend;
+      return { ...state, days: newDays };
     case SET_DAY:
       return { ...state, day: action.value };
     case SET_APPLICATION_DATA:
@@ -29,11 +28,11 @@ function reducer(state, action) {
         spots: action.spots
       };
     case SET_INTERVIEW: {
-      console.log("set_int")
+      console.log("set_int");
       return { ...state, appointments: action.value };
     }
     case SET_SPOTS: {
-      console.log("before returning in switch statement", action.value)
+      console.log("before returning in switch statement", action.value);
       return { ...state, spots: action.value };
     }
     default:
@@ -48,9 +47,9 @@ export default function useApplicationData() {
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {},
+    interviewers: {}
   });
-  
+
   const setDay = day => dispatch({ type: SET_DAY, value: day });
 
   function bookInterview(id, interview) {
@@ -65,8 +64,7 @@ export default function useApplicationData() {
     };
 
     return axios.put(`/api/appointments/${id}`, appointment).then(() => {
-      console.log("before dispatch for set_interview");
-      dispatch({ type: SET_SPOTS, addend: -1 })
+      dispatch({ type: SET_SPOTS, addend: -1 });
       dispatch({ type: SET_INTERVIEW, value: appointments });
     });
   }
@@ -81,7 +79,7 @@ export default function useApplicationData() {
       [id]: appointment
     };
     return axios.delete(`/api/appointments/${id}`, appointment).then(() => {
-      dispatch({ type: SET_SPOTS, addend: 1 })
+      dispatch({ type: SET_SPOTS, addend: 1 });
       dispatch({ type: SET_INTERVIEW, value: appointments });
     });
   }
