@@ -86,5 +86,11 @@ export default {
       status: 200,
       statusText: "OK"
     })
+  }),
+  delete: jest.fn(url => {
+    return Promise.resolve({
+      status: 200,
+      statusText: "OK"
+    })
   })
 };

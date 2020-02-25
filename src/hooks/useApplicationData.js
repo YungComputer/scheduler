@@ -69,6 +69,22 @@ export default function useApplicationData() {
     });
   }
 
+  function editInterview(id, interview) {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => {
+      dispatch({ type: SET_INTERVIEW, value: appointments });
+    });
+  }
+
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -102,5 +118,5 @@ export default function useApplicationData() {
       });
     });
   }, []);
-  return { state, setDay, bookInterview, cancelInterview };
+  return { state, setDay, bookInterview, cancelInterview, editInterview };
 }
