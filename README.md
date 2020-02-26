@@ -1,7 +1,7 @@
 # Interview Scheduler
 
 ## Screenshots
-!["gif of Scheduler App"](https://im7.ezgif.com/tmp/ezgif-7-130650aea5c1.gif)
+!["gif of Scheduler App"](https://im7.ezgif.com/tmp/ezgif-7-e920b2bcc28f.gif)
 
 ## Setup
 
