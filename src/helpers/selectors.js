@@ -20,9 +20,7 @@ export function getInterviewersForDay(state, day) {
   for (const selectedDay in state.days) {
     if (state.days[selectedDay].name === day) {
       for (const interviewer of state.days[selectedDay].interviewers) {
-        resultArray.push(
-          state.interviewers[interviewer]
-        );
+        resultArray.push(state.interviewers[interviewer]);
       }
       return resultArray;
     }

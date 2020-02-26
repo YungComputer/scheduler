@@ -1,13 +1,13 @@
 import React, { useEffect, useReducer } from "react";
 import axios from "axios";
 
-import reducer, {
+import {
   SET_DAY,
+  reducer,
   SET_APPLICATION_DATA,
   SET_INTERVIEW,
   SET_SPOTS
 } from "reducers/application.js";
-
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -76,7 +76,6 @@ export default function useApplicationData() {
       getAppointmentsPromise,
       getInterviewersPromise
     ]).then(all => {
-      console.log("what is all", all);
       dispatch({
         type: SET_APPLICATION_DATA,
         days: all[0].data,

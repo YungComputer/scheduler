@@ -1,11 +1,9 @@
 import react from "react";
-const SET_DAY = "SET_DAY";
-const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-const SET_INTERVIEW = "SET_INTERVIEW";
-const SET_SPOTS = "SET_SPOTS";
-import useApplicationData from "hooks/useApplicationData.js"
-export default function reducer(state, action) {
-
+export const SET_DAY = "SET_DAY";
+export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+export const SET_INTERVIEW = "SET_INTERVIEW";
+export const SET_SPOTS = "SET_SPOTS";
+export function reducer(state, action) {
   switch (action.type) {
     case SET_SPOTS:
       const indexOfDay = state.days.findIndex(day => day.name === state.day);
